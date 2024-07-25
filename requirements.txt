@@ -1,0 +1,13 @@
+streamlit
+pandas
+plotly
+geopy
+seaborn
+matplotlib
+scikit-learn
+shapely
+folium
+selenium
+webdriver-manager
+openpyxl
+xlsxwriter

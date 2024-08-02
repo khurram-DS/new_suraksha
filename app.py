@@ -705,7 +705,7 @@ def main():
                      f"Avg Healthcare Rating: {row['Avg Healthcare Rating']}<br>" \
                      f"Distance: {row['distance']}<br>" \
                      f"Localities: {row['localities']}<br>" \
-                     f"Rank: {row['rank']}"
+                     f"Rank: {row['rank']}" 
     
         # Add the ward center marker to the appropriate feature group
         ward_feature_groups[row['ward']].add_child(folium.Marker(
@@ -773,7 +773,7 @@ def main():
                 fill_color=ward_color,
                 fill_opacity=0.2
             ))
-    
+        
     # Add all feature groups to the map
     for ward, feature_group in ward_feature_groups.items():
         m.add_child(feature_group)

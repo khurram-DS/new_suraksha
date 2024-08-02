@@ -665,7 +665,8 @@ def main():
     )
     st.subheader("➡️ Multiple optimal location in each ward where we can go and check the location for new suraksha center nearby")
     
-    st.markdown("**-- From the filtered data of top location , as we already find the best location based on healthcare , Now from that location we are trying to find the location which are beside the road and easily commutable and mostly busiest**")
+    st.markdown("**-- From the filtered data of top location, as we already find the best location based on healthcare, now from that location we are trying to find the location which are beside the road, easily commutable, and mostly busiest**")
+    
     optimal_locations_df = pd.read_excel('location_final.xlsx')
     merged_df1 = pd.merge(optimal_locations_df, population_df[['ward', 'Region', 'lat', 'long']], on=['ward', 'Region'], how='left')
     merged_df1 = merged_df1.rename(columns={'nearest_center': 'Location'})
@@ -719,7 +720,7 @@ def main():
         for i in range(1, 6):
             optimal_lat = row[f'optimal_lat_{i}']
             optimal_long = row[f'optimal_long_{i}']
-            if pd.notna(optimal_lat) and pd.notna(optimal_long()):
+            if pd.notna(optimal_lat) and pd.notna(optimal_long):
                 popup_text = f"Optimal Location {i} for Ward {row['ward']}"
                 ward_feature_groups[row['ward']].add_child(folium.CircleMarker(
                     location=[optimal_lat, optimal_long],

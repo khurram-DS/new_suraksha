@@ -475,7 +475,7 @@ def main():
     # Flatten the MultiIndex columns
     cluster_summary.columns = ['_'.join(col).strip() for col in cluster_summary.columns.values]  
     
-    st.subheader("➡️ Finding out top location which is at the distance more than 2km from existing suraksha center by giving weightage for all the data which we extracted")
+    st.subheader("➡️ Finding out top location which is at the distance more than 3km from existing suraksha center by giving weightage for all the data which we extracted")
     weights = {
     'number_of_household': 0.2,
     'total_population': 0.2,
@@ -554,7 +554,7 @@ def main():
     final_candidates = []
     for _, candidate in top_candidates.iterrows():
         if all(geodesic((candidate['lat'], candidate['long']), (final_candidate['lat'], final_candidate['long'])).km >= 2 for final_candidate in final_candidates):
-            if candidate['distance'] >= 2:
+            if candidate['distance'] >= 3:
                 final_candidates.append(candidate)
     
     final_candidates_df = pd.DataFrame(final_candidates)

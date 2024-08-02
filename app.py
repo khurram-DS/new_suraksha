@@ -666,7 +666,7 @@ def main():
     st.subheader("➡️ Multiple optimal location in each ward where we can go and check the location for new suraksha center nearby")
     
     st.markdown("**-- From the filtered data of top location , as we already find the best location based on healthcare , Now from that location we are trying to find the location which are beside the road and easily commutable and mostly busiest**")
-    optimal_locations_df=pd.read_excel('location_final.xlsx')
+    optimal_locations_df = pd.read_excel('location_final.xlsx')
     merged_df1 = pd.merge(optimal_locations_df, population_df[['ward', 'Region', 'lat', 'long']], on=['ward', 'Region'], how='left')
     merged_df1 = merged_df1.rename(columns={'nearest_center': 'Location'})
     merged_df = pd.merge(merged_df1, suraksha_df[['Location', 'Latitude', 'Longitude']], on='Location', how='left')
@@ -674,8 +674,8 @@ def main():
     map_center = [22.5726, 88.3639]
     m = folium.Map(location=map_center, zoom_start=12)
     
-    # Add Suraksha Diagnostic centers from suraksha_df
-    for _, row in merged_df.iterrows():
+    # Add all Suraksha Diagnostic centers from suraksha_df
+    for _, row in suraksha_df.iterrows():
         folium.Marker(
             location=[row['Latitude'], row['Longitude']],
             popup=row['Location'],
@@ -719,7 +719,7 @@ def main():
         for i in range(1, 6):
             optimal_lat = row[f'optimal_lat_{i}']
             optimal_long = row[f'optimal_long_{i}']
-            if pd.notna(optimal_lat) and pd.notna(optimal_long):
+            if pd.notna(optimal_lat) and pd.notna(optimal_long()):
                 popup_text = f"Optimal Location {i} for Ward {row['ward']}"
                 ward_feature_groups[row['ward']].add_child(folium.CircleMarker(
                     location=[optimal_lat, optimal_long],
@@ -799,20 +799,16 @@ def main():
         processed_data = output.getvalue()
         return processed_data
     
-    st.download_button(label='Download multiple optimal location in Ward', data=to_excel(merged_df), file_name='final_optimal_location_in wards.xlsx')
+    st.download_button(label='Download multiple optimal location in Ward', data=to_excel(merged_df), file_name='final_optimal_location_in_wards.xlsx')
     
     # Provide the HTML map for download
     with open('optimal_location_with_LatLong.html', 'rb') as file:
-        btn = st.download_button(
+        st.download_button(
             label='Download Map as HTML',
             data=file,
             file_name='optimal_location_with_LatLong.html',
             mime='text/html'
         )
-    
-    
-    
-    
-    
+
 if __name__ == '__main__':
     main()
